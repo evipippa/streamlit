@@ -11,6 +11,7 @@ import numpy as np
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn import metrics
 
+
 def introduction():
     st.title("**Welcome to Spotawheel!")
     st.subheader(
@@ -30,7 +31,7 @@ def xgboost_model(X_train, y_train, X_test, y_test):
     st.write('Mean Squared  Error      : ' + str( metrics.mean_squared_error(y_test, y_pred)))
     st.write('Root Mean Squared  Error : '+ str( np.sqrt(metrics.mean_squared_error(y_test, y_pred))))
     st.write('R Squared Error          : '+ str( metrics.r2_score(y_test, y_pred)))
-    
+    return y_pred
 
 st.set_page_config(
     page_title="Spotawheel", layout="wide", page_icon="./images/flask.png"
@@ -40,6 +41,7 @@ st.set_page_config(
 
 def body():
     introduction()
+    
     
     X_train_file = st.file_uploader("Upload Training Set:",type=['csv'])
     y_train_file = st.file_uploader("Upload Training Price:",type=['csv'])
@@ -55,11 +57,17 @@ def body():
             st.write(file_details)
             X_train = pd.read_csv(X_train_file)
             st.dataframe(X_train)
-            
-            
+        else:
+            X_train = pd.read_csv(r'.\data\X_train_selected.csv')
+
         if y_train_file is not None:
-           y_tr = pd.read_csv(y_train_file)
-           y_train = y_tr['Price']
+            y_tr = pd.read_csv(y_train_file)
+            y_train = y_tr['Price']
+        else:
+            y_tr = pd.read_csv(r'.\data\y_train.csv')
+            y_train = y_tr['Price']
+
+  
                 
 
     with col2:
@@ -68,13 +76,21 @@ def body():
             st.write(file_details)
             X_test = pd.read_csv(X_test_file)
             st.dataframe(X_test)
-            if y_test_file is not None:
-                y_tst = pd.read_csv(y_test_file)
-                y_test = y_tst['Price']
+        else:
+            X_test = pd.read_csv(r'.\data\X_test_selected.csv')
+
+        if y_test_file is not None:
+            y_tst = pd.read_csv(y_test_file)
+            y_test = y_tst['Price']
+        else:
+            y_tst = pd.read_csv(r'.\data\y_test.csv')
+            y_test = y_tst['Price']
+
             
-    xgboost_model(X_train, y_train, X_test, y_test)
+    y_pred = xgboost_model(X_train, y_train, X_test, y_test)
        
 
 if __name__ == "__main__":
 
     body()
+
