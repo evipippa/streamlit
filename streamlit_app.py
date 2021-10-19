@@ -57,15 +57,11 @@ def body():
             st.write(file_details)
             X_train = pd.read_csv(X_train_file)
             st.dataframe(X_train)
-        #else:
-        #    X_train = pd.read_csv(r'.\data\X_train_selected.csv')
+
 
         if y_train_file is not None:
             y_tr = pd.read_csv(y_train_file)
             y_train = y_tr['Price']
-        #else:
-        #    y_tr = pd.read_csv(r'.\data\y_train.csv')
-        #    y_train = y_tr['Price']
 
   
                 
@@ -76,16 +72,12 @@ def body():
             st.write(file_details)
             X_test = pd.read_csv(X_test_file)
             st.dataframe(X_test)
-        #else:
-        #    X_test = pd.read_csv(r'.\data\X_test_selected.csv')
+
 
         if y_test_file is not None:
             y_tst = pd.read_csv(y_test_file)
             y_test = y_tst['Price']
-        #else:
-        #    y_tst = pd.read_csv(r'.\data\y_test.csv')
-        #    y_test = y_tst['Price']
-
+       
     if ((X_train_file is not None) and (y_train_file is not None) and (X_test_file is not None) and (y_test_file is not None)):        
         y_pred = xgboost_model(X_train, y_train, X_test, y_test)
        
