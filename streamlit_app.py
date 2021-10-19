@@ -86,7 +86,7 @@ def body():
         #    y_tst = pd.read_csv(r'.\data\y_test.csv')
         #    y_test = y_tst['Price']
 
-    if ((X_train_file is not None) && (y_train_file is not None) && (X_test_file is not None) && (y_test_file is not None)):        
+    if ((X_train_file is not None) and (y_train_file is not None) and (X_test_file is not None) and (y_test_file is not None)):        
         y_pred = xgboost_model(X_train, y_train, X_test, y_test)
        
 
