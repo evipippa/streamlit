@@ -1,0 +1,1 @@
+web: streamlit run spotawheel-main.py --server.port $PORT
